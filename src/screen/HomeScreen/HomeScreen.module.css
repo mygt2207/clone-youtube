@@ -1,0 +1,25 @@
+.container {
+    padding-bottom: 32px;
+}
+
+.categoriesContainer {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.categoryLink{
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover{
+        background: #fff;
+        color: #000;
+    }
+}
+.activeCategoryLink{
+    background: #fff;
+    color: #000;
+}

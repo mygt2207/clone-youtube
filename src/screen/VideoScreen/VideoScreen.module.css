@@ -1,0 +1,51 @@
+.container {
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.iframe {
+  aspect-ratio: 16 / 9;
+  width: 80%;
+  height: 90%;
+  border: none;
+}
+
+.videoTitle {
+  margin-top: 12px;
+    font-size: 20px;
+}
+
+.videoInfoContainer {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+    align-items: center;
+}
+
+.channelImage {
+  flex-shrink: 0;
+  z-index: 1;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: gray;
+  border-radius: 50%;
+  .hiddenText {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  &:hover {
+    background: #bbb;
+  }
+}
+
+.channelNameLink {
+  position: relative;
+
+  z-index: 1;
+}

@@ -1,0 +1,14 @@
+.container {
+  padding-bottom: 32px;
+}
+
+.categoriesContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.categoryLink{
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 8px 16px;
+}

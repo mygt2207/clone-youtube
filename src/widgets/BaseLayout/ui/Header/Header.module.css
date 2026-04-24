@@ -1,0 +1,51 @@
+.header {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rightPart {
+  display: flex;
+  gap: 16px;
+}
+
+.yourProfileLink {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: gray;
+  border-radius: 50%;
+  .hiddenText {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  &:hover {
+    background: #bbb;
+  }
+}
+
+.createVideoLink {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  width: 111px;
+  height: 35px;
+  border-radius: 18px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  gap: 6px;
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  &:before {
+    justify-content: center;
+    align-items: center;
+    content: '+';
+    display: flex;
+
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,10 @@
+.container {
+    padding-bottom: 32px;
+}
+
+.error {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 3px;
+    color: #e70000;
+}
