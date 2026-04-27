@@ -1,16 +1,12 @@
 import React from 'react';
 import { BaseLayout } from '@/widgets/BaseLayout';
-import { withUserInfo } from '@/shared/hoc/withUserInfo';
-import { AuthUserDto } from '@/shared/types/typesFromBackend';
+import { getAuthUser } from '@/shared/libs';
 
-const PublicLayout = ({
-  children,
-  user,
-}: {
+interface PublicLayoutProps {
   children: React.ReactNode;
-  user?: AuthUserDto;
-}) => {
-  return <BaseLayout userId={user?.id}>{children}</BaseLayout>;
-};
+}
+export default async function PublicLayout({ children }: PublicLayoutProps) {
+  const user = await getAuthUser();
 
-export default withUserInfo(PublicLayout);
+  return <BaseLayout userId={user?.id}>{children}</BaseLayout>;
+}
