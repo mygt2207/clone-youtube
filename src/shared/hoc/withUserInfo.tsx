@@ -1,6 +1,7 @@
 import React from 'react';
 import { cookies } from 'next/headers';
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
+import { getUsersData } from '@/app/api/users/getUsersData';
 
 export const withUserInfo = <T extends object>(Component: React.FC<T>) => {
   // eslint-disable-next-line react/display-name
@@ -13,14 +14,7 @@ export const withUserInfo = <T extends object>(Component: React.FC<T>) => {
         throw new Error();
       }
 
-      const rawData = await fetch(`${process.env.SERVER_API_URL}/api/users`, {
-        method: 'GET',
-        headers: {
-          cookie: `${AUTH_COOKIE_NAME}=${authToken?.value}`,
-        },
-      });
-
-      const dataFromBackend = await rawData.json();
+      const dataFromBackend = await getUsersData();
 
       return <Component user={dataFromBackend.user} {...props} />;
     } catch (error) {

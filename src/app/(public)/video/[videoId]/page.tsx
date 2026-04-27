@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { VideoScreen } from '@/screen/VideoScreen';
-import { GetOneVideoDto } from '@/shared/types/typesFromBackend';
+import { getOneVideo } from '@/app/api/videos/getOneVideo';
 
 type VideoPageProps = {
   params: Promise<{
@@ -15,10 +15,7 @@ export async function generateMetadata({
   const videoId = data.videoId;
 
   try {
-    const dataFromServer = await fetch(
-      `${process.env.SERVER_API_URL}/api/videos?videoId=${videoId}`,
-    );
-    const response = (await dataFromServer.json()) as GetOneVideoDto;
+    const response = await getOneVideo({ videoId });
 
     if (!response.data) {
       throw new Error('Could not find video');
@@ -41,22 +38,16 @@ export default async function VideoPage({ params }: VideoPageProps) {
   const data = await params;
   const videoId = data.videoId;
 
-  let response: GetOneVideoDto;
-
   try {
-    const dataFromServer = await fetch(
-      `${process.env.SERVER_API_URL}/api/videos?videoId=${videoId}`,
-    );
-    response = (await dataFromServer.json()) as GetOneVideoDto;
+    const response = await getOneVideo({ videoId });
+
     if (!response.data) {
       throw new Error('Could not find video');
     }
+
+    return <VideoScreen data={response.data} />;
   } catch (error) {
     console.log('error', error);
     return <div>Something went wrong</div>;
   }
-
-  if (!data) return null;
-
-  return <VideoScreen data={response.data} />;
 }

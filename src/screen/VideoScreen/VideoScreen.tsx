@@ -2,10 +2,10 @@
 
 import s from './VideoScreen.module.css';
 import Link from 'next/link';
-import { VideoDto } from '@/shared/types/typesFromBackend';
+import { GetOneVideoDto } from '@/shared/types/typesFromBackend';
 
 type VideoScreenProps = {
-  data: VideoDto;
+  data: NonNullable<GetOneVideoDto['data']>;
 };
 
 export const VideoScreen = ({ data }: VideoScreenProps) => {

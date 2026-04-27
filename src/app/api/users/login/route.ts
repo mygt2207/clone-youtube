@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
 import { users } from '../../db';
 import jsonwebtoken from 'jsonwebtoken';
-import { env } from '@/shared/libs';
+import { env } from '@/shared/libs/env';
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
 
 export async function POST(request: Request) {

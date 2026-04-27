@@ -1,12 +1,12 @@
 import React from 'react';
 import { BaseLayout } from '@/widgets/BaseLayout';
-import { getAuthUser } from '@/shared/libs';
+import { getUsersData } from '@/app/api/users/getUsersData';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
 }
 export default async function PublicLayout({ children }: PublicLayoutProps) {
-  const user = await getAuthUser();
+  const data = await getUsersData();
 
-  return <BaseLayout userId={user?.id}>{children}</BaseLayout>;
+  return <BaseLayout userId={data?.user?.id}>{children}</BaseLayout>;
 }

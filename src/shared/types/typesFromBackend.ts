@@ -6,7 +6,10 @@ export type VideoDto = {
   authorUrl: string;
 };
 
-export type GetOneVideoDto = { ok: boolean; data: VideoDto | null };
+export type GetOneVideoDto = {
+  ok: boolean;
+  data: Omit<VideoDto, 'categoryId'> | null;
+};
 
 export type GetAllVideosDto = {
   ok: boolean;
