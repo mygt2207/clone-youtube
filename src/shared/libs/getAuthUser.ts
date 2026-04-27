@@ -1,7 +1,9 @@
 // src/shared/lib/getAuthUser.ts
 import { cookies } from 'next/headers';
-import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
 import { AuthUserDto } from '@/shared/types/typesFromBackend';
+// import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
+
+const AUTH_COOKIE_NAME = 'x-auth-token';
 
 export async function getAuthUser(): Promise<AuthUserDto | null> {
   try {

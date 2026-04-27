@@ -6,7 +6,13 @@ schema.parse(process.env);
 const nextConfig: NextConfig = {
   devIndicators: false,
   images: {
-    remotePatterns: [new URL('https://img.youtube.com/vi/**')],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/vi/**',
+      },
+    ],
   },
 };
 

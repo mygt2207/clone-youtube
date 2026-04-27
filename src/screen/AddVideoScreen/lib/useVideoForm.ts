@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import getYouTubeID from 'get-youtube-id';
 
@@ -55,7 +55,7 @@ export const useVideoForm = () => {
     reset();
   };
 
-  const onError = (errors: any) => {
+  const onError = (errors: FieldErrors<Inputs>) => {
     console.log('errors', errors);
   };
 

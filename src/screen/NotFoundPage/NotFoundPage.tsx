@@ -13,7 +13,7 @@ export const NotFoundPage = () => {
         src='/monkey.png'
         alt='Not found page'
       />
-      <p>This page isn't available. Sorry about that.</p>
+      <p>This page is not available. Sorry about that.</p>
       <p>Try searching for something else.</p>
       <Link href='/'>
         <Image width='145' height='30' src='/logo.svg' alt='logo' />
