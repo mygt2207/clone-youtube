@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 export const NotFoundPage = () => {
+  console.log('logger', 'test deploy');
   return (
     <div className={s.container}>
       <Image
