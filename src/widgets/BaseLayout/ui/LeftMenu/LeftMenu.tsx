@@ -9,6 +9,7 @@ import AddIcon from '@/shared/assets/icons/add.svg';
 import VideoIcon from '@/shared/assets/icons/video.svg';
 import ProfileIcon from '@/shared/assets/icons/profile.svg';
 import { useRouter } from 'next/navigation';
+import { logoutRequest } from '@/app/api/users/logoutRequest';
 
 type LeftMenuProps = {
   userId?: string;
@@ -18,7 +19,7 @@ export const LeftMenu = ({ userId }: LeftMenuProps) => {
   const router = useRouter();
 
   const onLogOut = async () => {
-    await fetch('/api/users/logout');
+    await logoutRequest();
     router.refresh();
   };
 

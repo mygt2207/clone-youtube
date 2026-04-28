@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import getYouTubeID from 'get-youtube-id';
+import { addOneVideo } from '@/app/api/videos/addOneVideo';
 
 const schema = z.object({
   videoUrl: z
@@ -44,14 +45,20 @@ export const useVideoForm = () => {
 
     setVideoId(videoId);
 
-    await fetch('/api/videos', {
-      method: 'POST',
-      body: JSON.stringify({
-        userId: '12345',
-        videoId,
-        categoryId: data.videoCategory,
-      }),
+    await addOneVideo({
+      userId: '12345',
+      videoId,
+      categoryId: data.videoCategory,
     });
+
+    // await fetch('/api/videos', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     userId: '12345',
+    //     videoId,
+    //     categoryId: data.videoCategory,
+    //   }),
+    // });
     reset();
   };
 

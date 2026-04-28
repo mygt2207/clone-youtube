@@ -1,28 +1,27 @@
+'use server';
+
 import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
-import { users } from '../../db';
+import { users } from '../db';
 import jsonwebtoken from 'jsonwebtoken';
 import { env } from '@/shared/libs/env';
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
 
-export async function POST(request: Request) {
-  const data = await request.json();
+type LoginRequestProps = {
+  nickname: string;
+  password: string;
+};
 
+export const loginRequest = async (data: LoginRequestProps) => {
   const user = users.get(data.nickname);
 
   if (!user) {
-    return Response.json(
-      { ok: false, message: "User doesn't exist" },
-      { status: 400 },
-    );
+    return { ok: false, message: "User doesn't exist" };
   }
   const isPasswordsEqual = await bcrypt.compare(data.password, user.password);
 
   if (!isPasswordsEqual) {
-    return Response.json(
-      { ok: false, message: 'Invalid nickname or password' },
-      { status: 400 },
-    );
+    return { ok: false, message: 'Invalid nickname or password' };
   }
   const { id, nickname } = user;
 
@@ -38,11 +37,11 @@ export async function POST(request: Request) {
     secure: true,
   });
 
-  return Response.json({
+  return {
     ok: true,
     user: {
       id: user.id,
       nickname: user.nickname,
     },
-  });
-}
+  };
+};

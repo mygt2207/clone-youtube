@@ -1,19 +1,21 @@
+'use server';
+
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import { users } from '../../db';
+import { users } from '../db';
 import jsonwebtoken from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { env } from '@/shared/libs/env';
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
 
-export async function POST(request: Request) {
-  const data = await request.json();
+type RegisterRequestProps = {
+  nickname: string;
+  password: string;
+};
 
+export const registerRequest = async (data: RegisterRequestProps) => {
   if (users.has(data.nickname)) {
-    return Response.json(
-      { ok: false, message: 'User already exists' },
-      { status: 400 },
-    );
+    return { ok: false, message: 'User already exists' };
   }
 
   const id = crypto.randomBytes(16).toString('hex');
@@ -39,5 +41,5 @@ export async function POST(request: Request) {
     secure: true,
   });
 
-  return Response.json({ ok: true });
-}
+  return { ok: true };
+};

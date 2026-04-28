@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { AuthUserDto } from '@/shared/types/typesFromBackend';
+import { loginRequest } from '@/app/api/users/loginRequest';
 
 const schema = z.object({
   nickname: z.string().min(3, 'At least 3 characters long'),
@@ -33,13 +34,7 @@ export const LoginScreen = () => {
     const { nickname, password } = data;
 
     try {
-      const response = await fetch('/api/users/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          nickname,
-          password,
-        }),
-      });
+      const response = await loginRequest({ nickname, password });
 
       // const data = (await rawData.json()) as AuthUserDto;
 

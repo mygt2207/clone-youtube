@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { registerRequest } from '@/app/api/users/registerRequest';
 
 const schema = z.object({
   nickname: z.string().min(3, 'At least 3 characters long'),
@@ -40,16 +41,8 @@ export const RegisterScreen = () => {
       return;
     }
 
-    const { nickname, password } = data;
-
     try {
-      const response = await fetch('/api/users/register', {
-        method: 'POST',
-        body: JSON.stringify({
-          nickname,
-          password,
-        }),
-      });
+      const response = await registerRequest(data);
 
       if (response.ok) {
         router.replace('/');
