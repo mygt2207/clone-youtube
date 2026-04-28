@@ -1,6 +1,6 @@
-import { videos } from '@/app/api/db';
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend';
 import { OEmbedVideoInfo } from './types';
+import { getVideos } from '@/app/api/blobDB';
 
 type GetVideosDataProps = {
   categoryIdParam?: string;
@@ -11,11 +11,13 @@ export const getVideosData = async ({
   categoryIdParam,
   userIdParam,
 }: GetVideosDataProps = {}): Promise<GetAllVideosDto> => {
+  const dataFromVercel = await getVideos();
+
   const categories = Array.from(
-    new Set([...videos].map((data) => data[1].categoryId)),
+    new Set([...dataFromVercel].map((data) => data[1].categoryId)),
   );
 
-  const promises = [...videos]
+  const promises = [...dataFromVercel]
     .filter(
       (data) =>
         !categoryIdParam ||

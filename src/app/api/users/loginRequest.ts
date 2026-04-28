@@ -2,10 +2,10 @@
 
 import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
-import { users } from '../db';
 import jsonwebtoken from 'jsonwebtoken';
 import { env } from '@/shared/libs/env';
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
+import { getUsers } from '@/app/api/blobDB';
 
 type LoginRequestProps = {
   nickname: string;
@@ -13,6 +13,8 @@ type LoginRequestProps = {
 };
 
 export const loginRequest = async (data: LoginRequestProps) => {
+  const users = await getUsers();
+
   const user = users.get(data.nickname);
 
   if (!user) {
@@ -32,9 +34,9 @@ export const loginRequest = async (data: LoginRequestProps) => {
   const cookiesStore = await cookies();
 
   cookiesStore.set(AUTH_COOKIE_NAME, jwt, {
-    maxAge: 3600,
+    maxAge: 60 * 60 * 24 * 100,
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
   });
 
   return {

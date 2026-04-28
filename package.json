@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@vercel/blob": "^2.2.0",
     "bcrypt": "^6.0.0",
     "classnames": "^2.5.1",
     "get-youtube-id": "^1.0.1",

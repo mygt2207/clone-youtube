@@ -2,11 +2,11 @@
 
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import { users } from '../db';
 import jsonwebtoken from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { env } from '@/shared/libs/env';
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames';
+import { getUsers, saveUsers } from '@/app/api/blobDB';
 
 type RegisterRequestProps = {
   nickname: string;
@@ -14,6 +14,8 @@ type RegisterRequestProps = {
 };
 
 export const registerRequest = async (data: RegisterRequestProps) => {
+  const users = await getUsers();
+
   if (users.has(data.nickname)) {
     return { ok: false, message: 'User already exists' };
   }
@@ -26,6 +28,8 @@ export const registerRequest = async (data: RegisterRequestProps) => {
     nickname: data.nickname,
     password: hashedPassword,
   });
+
+  await saveUsers(users);
 
   const jwt = jsonwebtoken.sign(
     { id, nickname: data.nickname },

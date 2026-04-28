@@ -1,6 +1,6 @@
 'use server';
 
-import { videos } from '@/app/api/db';
+import { getVideos, saveVideos } from '@/app/api/blobDB';
 
 type AddOneVideoProps = {
   videoId: string;
@@ -13,15 +13,18 @@ export const addOneVideo = async ({
   userId,
   categoryId,
 }: AddOneVideoProps) => {
-  if (videos.has(videoId)) {
+  const dataFromVercel = await getVideos();
+
+  if (dataFromVercel.has(videoId)) {
     return { ok: false };
   }
-
-  videos.set(videoId, {
+  dataFromVercel.set(videoId, {
     id: videoId,
     userId,
     categoryId,
   });
+
+  await saveVideos(dataFromVercel);
 
   return { ok: true };
 };
